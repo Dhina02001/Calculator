@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Calculator</title>
+  <style>
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Simple Calculator</h2>
+
+  <input type="text" id="expression" disabled>
+  <input type="text" id="result" disabled>
+
+  <br>
+
+  <button onclick="appendToExpression('1')">1</button>
+  <button onclick="appendToExpression('2')">2</button>
+  <button onclick="appendToExpression('3')">3</button>
+  <button onclick="appendToExpression('+')">+</button>
+
+  <br>
+
+  <button onclick="appendToExpression('4')">4</button>
+  <button onclick="appendToExpression('5')">5</button>
+  <button onclick="appendToExpression('6')">6</button>
+  <button onclick="appendToExpression('-')">-</button>
+
+  <br>
+
+  <button onclick="appendToExpression('7')">7</button>
+  <button onclick="appendToExpression('8')">8</button>
+  <button onclick="appendToExpression('9')">9</button>
+  <button onclick="appendToExpression('*')">*</button>
+
+  <br>
+
+  <button onclick="appendToExpression('0')">0</button>
+  <button onclick="clearExpression()">C</button>
+  <button onclick="calculateResult()">=</button>
+  <button onclick="appendToExpression('/')">/</button>
+
+  <script>
+    function appendToExpression(value) {
+      document.getElementById('expression').value += value;
+    }
+
+    function clearExpression() {
+      document.getElementById('expression').value = '';
+      document.getElementById('result').value = '';
+    }
+
+    function calculateResult() {
+      try {
+        const expression = document.getElementById('expression').value;
+        const result = eval(expression);
+        document.getElementById('result').value = result;
+      } catch (error) {
+        document.getElementById('result').value = 'Error';
+      }
+    }
+
+    // Keyboard controls
+    document.addEventListener('keydown', function(event) {
+      const key = event.key;
+
+      if (!isNaN(key) || key === '+' || key === '-' || key === '*' || key === '/') {
+        appendToExpression(key);
+      } else if (key === 'Enter') {
+        calculateResult();
+      } else if (key === 'Escape') {
+        clearExpression();
+      }
+    });
+  </script>
+
+</body>
+</html>
